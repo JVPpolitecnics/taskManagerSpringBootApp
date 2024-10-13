@@ -9,27 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.task_management.taskManagement.model.Task;
-import com.task_management.taskManagement.repository.TaskRepository;
+import com.task_management.taskManagement.service.TaskService;
 
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
-
-    private final TaskRepository taskRepository;
-
     @Autowired
-    public TaskController(TaskRepository taskRepository){
-        this.taskRepository = taskRepository;
-    }
+    private TaskService taskService;
 
     @GetMapping
     public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+        return taskService.findAll();
     }
 
     @GetMapping("/{title}") 
     public List<Task> getByTitle(@PathVariable String title) {
-        return taskRepository.findByTitle(title);
+        return taskService.findByTitle(title);
     }
     
 }
